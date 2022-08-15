@@ -1,28 +1,35 @@
 package com.pups.project.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="EVENTS")
 public class Event {
 	
-	private int id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	
+	@Column(name="EVENT_CODE")
 	private String code;
+	
+	@Column(name="TITLE")
 	private String title;
+	
+	@Column(name="DESCRIPTION")
 	private String description;
-	
-	
-	public Event(int id, String code, String title, String description) {
-		super();
-		this.id = id;
-		this.code = code;
-		this.title = title;
-		this.description = description;
-	}
 
-
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
