@@ -1,40 +1,57 @@
 package com.pups.project.api;
 
-import java.util.ArrayList;
+import java.net.URI;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import com.pups.project.domain.Customer;
 import com.pups.project.domain.Registration;
+import com.pups.project.repository.RegistrationsRepository;
 
 @RestController
 @RequestMapping("/registrations")
 public class RegistrationApi {
 	
-	public ArrayList<Registration> registrationRepository = new ArrayList<Registration>();
-	
-	public RegistrationApi() {
-		registrationRepository.add(new Registration(1,1,2,"2022-08-10T19:37:03.973+0000","Email me. I need to test if my email works."));
-		registrationRepository.add(new Registration(2,2,5,"2022-08-10T19:37:03.973+0000","I have two monitors but only one works."));
-		registrationRepository.add(new Registration(3,3,2,"2022-08-10T19:37:03.973+0000","My key.boa8/rd en;ters ran..do/m ke[ys."));
-	}
+	@Autowired
+	RegistrationsRepository registrationsRepository;
 	
 	@GetMapping("")
-	public ArrayList<Registration> getAllCustomers(){
-		return registrationRepository;
+	public Iterable<Registration> getAllRegistration(){
+		return registrationsRepository.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Registration getCustomer(@PathVariable int id){
-		for(int i = 0; i < registrationRepository.size(); i++) {
-			Registration registrationTemp = registrationRepository.get(i);
-			if (registrationTemp.getId() == id) {
-				return registrationTemp;
-			}
+	public Optional<Registration> getCRegistration(@PathVariable long id){
+		return registrationsRepository.findById(id);
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> addRegistration(@RequestBody Registration newRegistration, UriComponentsBuilder uri){
+		if (newRegistration.getId() != 0 || newRegistration.getCustomer_id()==null || newRegistration.getEvent_id() == null || newRegistration.getRegistration_date()==null || newRegistration.getNotes()==null) {
+			return ResponseEntity.badRequest().build();
 		}
-		return new Registration(0,0,0,"","");
+		newRegistration=registrationsRepository.save(newRegistration);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newRegistration.getId()).toUri();
+		ResponseEntity<?> response = ResponseEntity.created(location).build();
+		return response;
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<?> putCustomer(@RequestBody Registration newRegistration, @PathVariable("id") long id){
+		if (newRegistration.getId() != id || newRegistration.getCustomer_id()==null || newRegistration.getEvent_id() == null || newRegistration.getRegistration_date()==null || newRegistration.getNotes()==null) {
+			return ResponseEntity.badRequest().build();
+		}
+		newRegistration=registrationsRepository.save(newRegistration);
+		return ResponseEntity.ok().build();
 	}
 }

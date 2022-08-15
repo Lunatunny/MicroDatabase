@@ -13,7 +13,7 @@ public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	@Column(name="CUSTOMER_NAME")
 	private String name;
@@ -23,18 +23,8 @@ public class Customer {
 	
 	@Column(name="EMAIL")
 	private String email;
-	
-	
-	public Customer(int id, String name, String pass, String email) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.pass = pass;
-		this.email = email;
-	}
 
-
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 

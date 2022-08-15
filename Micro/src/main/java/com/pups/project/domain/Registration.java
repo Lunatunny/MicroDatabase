@@ -1,49 +1,58 @@
 package com.pups.project.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="REGISTRATIONS")
 public class Registration {
 	
-	private int id;
-	private int event_id;
-	private int customer_id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	
+	@Column(name="EVENT_ID")
+	private Integer event_id;
+	
+	@Column(name="CUSTOMER_ID")
+	private Integer customer_id;
+	
+	@Column(name="REGISTRATION_DATE")
 	private String registration_date;
+	
+	@Column(name="NOTES")
 	private String notes;
 	
-	
-	public Registration(int id, int event_id, int customer_id, String registration_date, String notes) {
-		super();
-		this.id = id;
-		this.event_id = event_id;
-		this.customer_id = customer_id;
-		this.registration_date = registration_date;
-		this.notes = notes;
-	}
-	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 
-	public int getEvent_id() {
+	public Integer getEvent_id() {
 		return event_id;
 	}
 
 
-	public void setEvent_id(int event_id) {
+	public void setEvent_id(Integer event_id) {
 		this.event_id = event_id;
 	}
 
 
-	public int getCustomer_id() {
+	public Integer getCustomer_id() {
 		return customer_id;
 	}
 
 
-	public void setCustomer_id(int customer_id) {
+	public void setCustomer_id(Integer customer_id) {
 		this.customer_id = customer_id;
 	}
 
