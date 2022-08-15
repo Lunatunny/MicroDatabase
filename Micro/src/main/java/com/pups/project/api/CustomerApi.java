@@ -37,7 +37,7 @@ public class CustomerApi {
 	
 	@PostMapping
 	public ResponseEntity<?> addCustomer(@RequestBody Customer newCustomer, UriComponentsBuilder uri){
-		if (newCustomer.getId() != 0 || newCustomer.getName()==null || newCustomer.getPass()==null || newCustomer.getEmail()==null) {
+		if (newCustomer.getId()!=0 || newCustomer.getName()==null || newCustomer.getPass()==null || newCustomer.getEmail()==null) {
 			return ResponseEntity.badRequest().build();
 		}
 		newCustomer=customersRepository.save(newCustomer);
