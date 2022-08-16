@@ -19,7 +19,7 @@ public class Customer {
 	private String name;
 	
 	@Column(name="PASSWORD")
-	private String pass;
+	private String password;
 	
 	@Column(name="EMAIL")
 	private String email;
@@ -43,14 +43,13 @@ public class Customer {
 		this.name = name;
 	}
 
-
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 

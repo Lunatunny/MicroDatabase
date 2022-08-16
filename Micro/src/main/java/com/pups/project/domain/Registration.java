@@ -16,10 +16,10 @@ public class Registration {
 	private long id;
 	
 	@Column(name="EVENT_ID")
-	private Integer event_id;
+	private String event_id;
 	
 	@Column(name="CUSTOMER_ID")
-	private Integer customer_id;
+	private String customer_id;
 	
 	@Column(name="REGISTRATION_DATE")
 	private String registration_date;
@@ -37,22 +37,22 @@ public class Registration {
 	}
 
 
-	public Integer getEvent_id() {
+	public String getEvent_id() {
 		return event_id;
 	}
 
 
-	public void setEvent_id(Integer event_id) {
+	public void setEvent_id(String event_id) {
 		this.event_id = event_id;
 	}
 
 
-	public Integer getCustomer_id() {
+	public String getCustomer_id() {
 		return customer_id;
 	}
 
 
-	public void setCustomer_id(Integer customer_id) {
+	public void setCustomer_id(String customer_id) {
 		this.customer_id = customer_id;
 	}
 
