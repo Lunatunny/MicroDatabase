@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,11 +48,20 @@ public class RegistrationApi {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> putCustomer(@RequestBody Registration newRegistration, @PathVariable("id") long id){
+	public ResponseEntity<?> putRegistration(@RequestBody Registration newRegistration, @PathVariable("id") long id){
 		if (newRegistration.getId() != id || newRegistration.getCustomer_id()==null || newRegistration.getEvent_id() == null || newRegistration.getRegistration_date()==null || newRegistration.getNotes()==null) {
 			return ResponseEntity.badRequest().build();
 		}
 		newRegistration=registrationsRepository.save(newRegistration);
 		return ResponseEntity.ok().build();
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteRegistration(@PathVariable("id") long id){
+		if (registrationsRepository.existsById(id)) {
+			registrationsRepository.deleteById(id);
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.badRequest().build();
 	}
 }
