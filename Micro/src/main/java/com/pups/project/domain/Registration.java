@@ -1,5 +1,7 @@
 package com.pups.project.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ public class Registration {
 	private String customer_id;
 	
 	@Column(name="REGISTRATION_DATE")
-	private String registration_date;
+	private Date registration_date;
 	
 	@Column(name="NOTES")
 	private String notes;
@@ -57,12 +59,12 @@ public class Registration {
 	}
 
 
-	public String getRegistration_date() {
+	public Date getRegistration_date() {
 		return registration_date;
 	}
 
 
-	public void setRegistration_date(String registration_date) {
+	public void setRegistration_date(Date registration_date) {
 		this.registration_date = registration_date;
 	}
 
