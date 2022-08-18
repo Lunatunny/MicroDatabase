@@ -31,10 +31,13 @@ public class AuthenticationFilter implements Filter {
 			String jwt_token = authheader.substring(7, authheader.length());
 			if (jwtUtility.verifyToken(jwt_token)) {
 				String request_scopes = jwtUtility.getScopes(jwt_token);
-				if (request_scopes.contains(uri)) {
-					// continue on to api
-					chain.doFilter(request, response);
-					return;
+				String[] scopeArray = request_scopes.split(" ");
+				for(String scopeInToken:scopeArray) {
+					if (uri.startsWith(scopeInToken)) {
+						// continue on to api
+						chain.doFilter(request, response);
+						return;
+					}
 				}
 			}
 		}
