@@ -1,6 +1,6 @@
 node {
     stage('Checkout - Dataservice') {
-        git url: 'https://github.com/Lunatunny/MicroDatabase'
+        git url: 'https://github.com/Lunatunny/MicroDatabase.git'
     }
     
     stage('Gradle Build - Dataservice') {
