@@ -1,0 +1,25 @@
+node {
+    stage('Checkout - Dataservice') {
+        git url: 'https://github.com/Lunatunny/MicroDatabase'
+    }
+    
+    stage('Gradle Build - Dataservice') {
+        bat 'gradle build -x test'
+    }
+    
+    stage ('Gradle Bootjar - Package - Dataservice'){
+        bat 'gradle bootjar'
+    }
+    
+    stage ('User Acceptance Test - Dataservice'){
+    	def response = input message: 'Is this build good for release?',
+    	parameters: [choice(choices: 'Yes\nNo',
+    	description: '', name: 'Pass')]
+    	
+    	if(response=='Yes') {
+    		stage('Release - Dataservice') {
+    			bat 'gradle build'
+    		}
+    	}
+    }
+}
