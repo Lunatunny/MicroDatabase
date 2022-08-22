@@ -18,7 +18,7 @@ node {
     	
     	if(response=='Yes') {
     		stage('Release - Dataservice') {
-    			sh 'gradle -b Micro/gradle.build build'
+    			sh 'gradle -b Micro/build.gradle build'
     		}
     	}
     }
