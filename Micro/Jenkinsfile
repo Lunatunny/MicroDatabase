@@ -4,11 +4,11 @@ node {
     }
     
     stage('Gradle Build - Dataservice') {
-        sh 'gradle build -x test'
+        gradle build -x test
     }
     
     stage ('Gradle Bootjar - Package - Dataservice'){
-        sh 'gradle bootjar'
+        gradle bootjar
     }
     
     stage ('User Acceptance Test - Dataservice'){
