@@ -33,6 +33,8 @@ public class AuthenticationFilter implements Filter {
 				String request_scopes = jwtUtility.getScopes(jwt_token);
 				String[] scopeArray = request_scopes.split(" ");
 				for(String scopeInToken:scopeArray) {
+					System.out.print(scopeInToken);
+					System.out.print(uri);
 					if (uri.startsWith(scopeInToken)) {
 						// continue on to api
 						chain.doFilter(request, response);
