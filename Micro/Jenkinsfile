@@ -12,7 +12,7 @@ node {
     }
     
     stage ("Build Docker Image - DATABASE API") {
-        sh 'docker build --rm -t jenkins-data:v1.0 Micro/Dockerfile'
+        sh 'docker build --rm -t jenkins-data:v1.0 ./Micro/Dockerfile'
     }
     
     stage ("Inspect Docker Image - DATABASE API"){
