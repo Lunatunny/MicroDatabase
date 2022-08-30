@@ -12,7 +12,7 @@ node {
     }
     
     stage ("Build Docker Image - DATABASE API") {
-        sh 'docker build --rm -t jenkins-data:v1.0 ./Micro/'
+	sh 'docker build --rm -t jenkins-data:v1.0 ./Micro/'
     }
     
     stage ("Inspect Docker Image - DATABASE API"){
@@ -21,8 +21,9 @@ node {
     }
     
     stage ("Run Docker Container Instance - DATABASE API"){
-        sh "docker run -d --rm --name jenkins-data -p 8080:8080 jenkins-data:v1.0"
-     }
+        sh "docker stop jenkins-data || true && docker rm jenkins-data || true"
+	sh "docker run -d --rm --name jenkins-data -p 8080:8080 jenkins-data:v1.0"
+    }
     
     stage('User Acceptance Test - DATABASE API') {
 	
@@ -34,7 +35,6 @@ node {
 	    stage('Deploy Kubernetes Cluster - DATABASE API') {
 	      sh "kubectl create deployment jenkins-data --image=jenkins-data:v1.0"
 		//get the value of API_HOST from kubernetes services and set the env variable
-	      sh "kubectl set env deployment/jenkins-data API_HOST=10.104.0.44:8080"
 	      sh "kubectl expose deployment jenkins-data --type=LoadBalancer --port=8081"
 	    }
 	  }
